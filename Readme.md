@@ -78,8 +78,8 @@ The Real-Time Driver Monitoring System (RTDMS) is a project aimed at improving r
   - Mitesh J Upadhya (1BM22AI075)
   - Shrujal Srinath (1BM22AI127)
 
-#### **Additional Resources**
-For more details about the system's architecture, literature review, and methodologies, refer to the [Project Report](https://Beyondmebtw.com/rtdms/report.pdf).
+## **Project Insights**
+For details about the system's architecture, literature review, and methodologies, kindly refer to the [Project Report](https://Beyondmebtw.com/rtdms/report.pdf).
 
 ## Contact us
 If you would like to contribute, report issues, or have any questions about the project, feel free to reach out to us at [pranavv.ai22@bmsce.ac.in](mailto:pranavv.ai22@bmsce.ac.in), [shreyassk.ai22@bmsce.ac.in](mailto:shreyassk.ai22@bmsce.ac.in), [mitesh.ai22@bmsce.ac.in](mailto:mitesh.ai22@bmsce.ac.in). Contributions are always welcome!
