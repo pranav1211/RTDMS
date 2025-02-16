@@ -87,6 +87,7 @@ If you would like to contribute, report issues, or have any questions about the 
 
 ## Licensing
 
-This project is available under two licenses:
-- **[GPL License](LICENSE)**: For open-source use with copyleft obligations.
-- **[CC BY-NC License](LICENSE-CC-BY-NC.md)**: For personal and non-commercial use.
+This project is licensed under the **MIT License**:
+- **[MIT License](LICENSE)**: A permissive license allowing free use, modification, and distribution for both personal and commercial purposes, with attribution.
+
+For more details, see the [MIT License](LICENSE) file included in this repository.
