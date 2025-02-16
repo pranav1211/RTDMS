@@ -44,9 +44,29 @@ The Real-Time Driver Monitoring System (RTDMS) is a project aimed at improving r
 
 ## How To Run Locally
 - First ensure you meet the Hardware and software requirements mentioned above
-- Download the folder (Local Code)
+- Download the folder [Local Code](https://github.com/pranav1211/RTDMS/tree/main/Local%20Code)
 - Run the file "app.py"
-- On the site, Click the "Enable Audio" Button to start detection
+- Click the "Enable Audio" Button to start detection at the bottom of the screen
+
+## How to Run Online
+- Open the site : [RTDMS](https://Beyondmebtw.com/rtdms)
+- Allow camera access permission
+- Click the "Enable Audio" Button to start detection at the below dashboard
+- Increase your phone volume
+
+## Results
+- The application alerts users based on the following observations :
+  1. **Driver Drowsy** : Eyes closed or squinting 
+  2. **Head Up** : Head tilted up for more than 2 seconds
+  3. **Head Down** : Head tilted down for more than 2 seconds
+  4. **Yawning** : Mouth open 2 seconds
+  5. **Phone In Use** : Phone detected in frame
+
+- Images :
+  - <img src="https://beyondmebtw.com/rtdms/headup.jpeg" alt="Head Up">
+  - <img src="https://beyondmebtw.com/rtdms/headdown.jpeg" alt="Head Down">
+  - <img src="https://beyondmebtw.com/rtdms/drowsy.jpeg" alt="Drowsy">
+  - <img src="https://beyondmebtw.com/rtdms/phone.jpeg" alt="Phone">
 
 
 
