@@ -55,7 +55,7 @@ The Real-Time Driver Monitoring System (RTDMS) is a project aimed at improving r
 - Allow camera access permission
 - Click the "Enable Audio" Button below the dashboard to start detection
 - Increase your phone volume
-- A stable network connection is reccomended for better stability
+- A stable network connection is recommended for better stability
 
 ## 6. Results
 - The application alerts users based on the following observations :
