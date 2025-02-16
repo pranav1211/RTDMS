@@ -53,6 +53,7 @@ The Real-Time Driver Monitoring System (RTDMS) is a project aimed at improving r
 - Allow camera access permission
 - Click the "Enable Audio" Button to start detection at the below dashboard
 - Increase your phone volume
+- A stable network connection is reccomended for better stability
 
 ## Results
 - The application alerts users based on the following observations :
@@ -63,12 +64,25 @@ The Real-Time Driver Monitoring System (RTDMS) is a project aimed at improving r
   5. **Phone In Use** : Phone detected in frame
 
 - Images :
-  - <img src="https://beyondmebtw.com/rtdms/headup.jpeg" alt="Head Up">
-  - <img src="https://beyondmebtw.com/rtdms/headdown.jpeg" alt="Head Down">
-  - <img src="https://beyondmebtw.com/rtdms/drowsy.jpeg" alt="Drowsy">
-  - <img src="https://beyondmebtw.com/rtdms/phone.jpeg" alt="Phone">
+  - <img src="https://beyondmebtw.com/rtdms/headup.jpeg" alt="Head Up" width=75%>
+  - <img src="https://beyondmebtw.com/rtdms/headdown.jpeg" alt="Head Down" width=75%>
+  - <img src="https://beyondmebtw.com/rtdms/drowsy.jpeg" alt="Drowsy" width=75%>
+  - <img src="https://beyondmebtw.com/rtdms/phone.jpeg" alt="Phone" width=75%>
 
+## Credits
 
+- This project, **Real-Time Driver Monitoring System**, was developed as part of the **Mini Project Work** course (Course Code: 24AM5PWMPW) during the 5th semester of the **Artificial Intelligence and Machine Learning** program at **BMS College of Engineering**.
+- Team Members:
+  - Pranav Veeraghanta (1BM22AI092)
+  - Shreyas Sachin Kshatriya (1BM22AI125)
+  - Mitesh J Upadhya (1BM22AI075)
+  - Shrujal Srinath (1BM22AI127)
+
+#### **Additional Resources**
+For more details about the system's architecture, literature review, and methodologies, refer to the [Project Report](https://Beyondmebtw.com/rtdms/report.pdf).
+
+## Contact us
+If you would like to contribute, report issues, or have any questions about the project, feel free to reach out to us at [pranavv.ai22@bmsce.ac.in](mailto:pranavv.ai22@bmsce.ac.in), [shreyassk.ai22@bmsce.ac.in](mailto:shreyassk.ai22@bmsce.ac.in), [mitesh.ai22@bmsce.ac.in](mailto:mitesh.ai22@bmsce.ac.in). Contributions are always welcome!
 
 
 ## Licensing
