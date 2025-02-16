@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Monitoring System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .video-feed {
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #processedImage {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            background-color: #ddd;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .status-container {
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+
+        .status-container.warning {
+            background-color: #ffcdd2;
+            transition: background-color 0.3s ease;
+        }
+
+        .status-container h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .status-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #status-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 0;
+        }
+
+        #status-text.status-warning {
+            color: #f44336;
+        }
+
+        #alert-text {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        #enable-audio {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 15px auto;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #enable-audio:hover {
+            background-color: #45a049;
+        }
+
+        #error-message {
+            display: none;
+            text-align: center;
+            color: #f44336;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .video-feed {
+                padding: 8px;
+            }
+
+            .status-container {
+                padding: 12px;
+            }
+
+            #status-text {
+                font-size: 1rem;
+            }
+
+            #enable-audio {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Driver Monitoring System</h1>
+    </header>
+    <div class="container">
+        <div class="video-feed">
+            <img id="processedImage" alt="Processed video feed">
+        </div>
+        <div class="status-container">
+            <div class="status-info">
+                <h2>System Status</h2>
+                <p id="status-text">Active</p>
+                <p id="alert-text">No alerts</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="error-message"></div>
+    <audio id="alert-sound" src="https://my-portfolio-website-s3-bucket.s3.ap-south-1.amazonaws.com/driver-monitoring-system/alert.mp3"></audio>
+    <button id="enable-audio">Enable Audio Alerts</button>
+
+    <script>
+        const processedImage = document.getElementById('processedImage');
+        const statusText = document.getElementById('status-text');
+        const statusContainer = document.querySelector('.status-container');
+        const alertText = document.getElementById('alert-text');
+        const alertSound = document.getElementById('alert-sound');
+        let audioEnabled = false;
+        let stream;
+
+        // Configuration
+        const FRAME_RATE = 10;
+        const SERVER_URL = 'https://shreyask.in/projects/driver-monitoring-system/demo/receive_frame';
+        const WARNING_STATUSES = [
+            "Driver Drowsy!",
+            "Head Up!",
+            "Head Down!",
+            "Yawning!",
+            "Phone in Use!",
+            "No Face Detected"
+        ];
+
+        function enableAudio() {
+            alertSound.play().then(() => {
+                alertSound.pause();
+                alertSound.currentTime = 0;
+                audioEnabled = true;
+                document.getElementById('enable-audio').style.display = 'none';
+            }).catch(error => {
+                console.error("Error enabling audio:", error);
+            });
+        }
+
+        function updateStatus(status) {
+            statusText.textContent = status;
+            if (WARNING_STATUSES.includes(status)) {
+                statusText.className = 'status-warning';
+                statusContainer.classList.add('warning');
+                alertText.textContent = `Alert: ${status}`;
+                if (audioEnabled) {
+                    alertSound.play();
+                }
+            } else {
+                statusText.className = '';
+                statusContainer.classList.remove('warning');
+                alertText.textContent = 'No alerts';
+                if (audioEnabled) {
+                    alertSound.pause();
+                    alertSound.currentTime = 0;
+                }
+            }
+        }
+
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 800 },
+                        height: { ideal: 600 },
+                        facingMode: 'user'
+                    } 
+                });
+                startStreaming();
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                document.getElementById('error-message').style.display = 'block';
+                if (err.name === 'NotAllowedError') {
+                    document.getElementById('error-message').textContent = 
+                        'Camera access was denied. Please enable camera access in your browser settings.';
+                } else if (err.name === 'NotFoundError') {
+                    document.getElementById('error-message').textContent = 
+                        'No camera detected. Please connect a camera and try again.';
+                } else {
+                    document.getElementById('error-message').textContent = 
+                        'Error accessing camera. Please check your camera connection and try again.';
+                }
+            }
+        }
+
+        function startStreaming() {
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.play();
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            if (window.innerWidth <= 768) {
+                canvas.width = 600;
+                canvas.height = 800;
+            } else {
+                canvas.width = 800;
+                canvas.height = 600;
+            }
+
+            setInterval(() => {
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const frame = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    fetch(SERVER_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ frame: frame })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status === 'success') {
+                            processedImage.src = data.processed_frame;
+                            updateStatus(data.driver_status);
+                        } else {
+                            throw new Error(data.message || 'Unknown error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('error-message').style.display = 'block';
+                        document.getElementById('error-message').textContent = 
+                            'Connection error. Please check your internet connection.';
+                    });
+                }
+            }, 1000 / FRAME_RATE);
+        }
+
+        // Event listeners
+        document.getElementById('enable-audio').addEventListener('click', enableAudio);
+        window.addEventListener('load', startCamera);
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && audioEnabled) {
+                alertSound.pause();
+                alertSound.currentTime = 0;
+            }
+        });
+    </script>
+</body>
+</html>
