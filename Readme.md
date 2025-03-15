@@ -50,8 +50,8 @@ The Real-Time Driver Monitoring System (RTDMS) is a project aimed at improving r
 - Run the file "app.py"
 - Click the "Enable Audio" Button at the bottom of the screen to start detection 
 
-## 5. How to Run Online
-- Open the site : [RTDMS](https://Beyondmebtw.com/rtdms)
+## 5. How to Run Online (Currently Unavailable)
+- Open the site : [RTDMS](https://Beyondmebtw.com/projects/rtdms)
 - Allow camera access permission
 - Click the "Enable Audio" Button below the dashboard to start detection
 - Increase your phone volume
